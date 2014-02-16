@@ -1,6 +1,6 @@
 {
-  "name": "favicon-static",
-  "version": "0.0.1",
+  "name": "static-favicon",
+  "version": "1.0.0",
   "description": "favicon serving middleware with caching",
   "keywords": [
     "favicon",
