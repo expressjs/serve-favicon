@@ -48,7 +48,7 @@ var crypto = require('crypto');
 
 module.exports = function favicon(path, options){
   var options = options || {}
-    , path = path || __dirname + '/../public/favicon.ico'
+    , path = path || __dirname + '/favicon.ico'
     , maxAge = options.maxAge || 86400000
     , icon; // favicon cache
 
