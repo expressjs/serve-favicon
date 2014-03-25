@@ -49,7 +49,7 @@ module.exports = function favicon(path, options){
     , maxAge = options.maxAge || 86400000
     , icon; // favicon cache
 
-  if (!path) throw new TypeError('argument path is required');
+  if (!path) throw new TypeError('path to favicon.ico is required');
 
   path = resolve(path);
 
