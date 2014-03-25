@@ -15,8 +15,7 @@ var crypto = require('crypto');
 /**
  * Favicon:
  *
- * By default serves the connect favicon, or the favicon
- * located by the given `path`.
+ * Serves the favicon located by the given `path`.
  *
  * Options:
  *
@@ -24,21 +23,18 @@ var crypto = require('crypto');
  *
  * Examples:
  *
- *   Serve default favicon:
+ *   Serve custom favicon:
  *
+ *     var favicon = require('static-favicon');
  *     connect()
- *       .use(connect.favicon())
+ *       .use(favicon('public/favicon.ico'))
  *
  *   Serve favicon before logging for brevity:
  *
+ *     var favicon = require('static-favicon');
  *     connect()
- *       .use(connect.favicon())
+ *       .use(favicon('public/favicon.ico'))
  *       .use(connect.logger('dev'))
- *
- *   Serve custom favicon:
- *
- *     connect()
- *       .use(connect.favicon('public/favicon.ico'))
  *
  * @param {String} path
  * @param {Object} options
@@ -48,9 +44,10 @@ var crypto = require('crypto');
 
 module.exports = function favicon(path, options){
   var options = options || {}
-    , path = path || __dirname + '/favicon.ico'
     , maxAge = options.maxAge || 86400000
     , icon; // favicon cache
+
+  if (!path) throw new TypeError('argument path is required');
 
   return function favicon(req, res, next){
     if ('/favicon.ico' == req.url) {
