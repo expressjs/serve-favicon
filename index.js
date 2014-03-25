@@ -9,8 +9,10 @@
  * Module dependencies.
  */
 
-var fs = require('fs');
 var crypto = require('crypto');
+var fs = require('fs');
+var path = require('path');
+var resolve = path.resolve;
 
 /**
  * Favicon:
@@ -49,6 +51,10 @@ module.exports = function favicon(path, options){
 
   if (!path) throw new TypeError('argument path is required');
 
+  path = resolve(path);
+
+  if (!fs.existsSync(path)) throw createNoExistsError(path);
+
   return function favicon(req, res, next){
     if ('/favicon.ico' == req.url) {
       if (icon) {
@@ -75,6 +81,15 @@ module.exports = function favicon(path, options){
     }
   };
 };
+
+function createNoExistsError(path) {
+	var error = new Error('ENOENT, no such file or directory \'' + path + '\'');
+	error.code = 'ENOENT';
+	error.errno = 34;
+	error.path = path;
+	error.syscall = 'open';
+	return error;
+}
 
 function md5(str, encoding){
   return crypto
