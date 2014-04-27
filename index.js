@@ -1,5 +1,5 @@
 /*!
- * Connect - favicon
+ * Expressjs | Connect - favicon
  * Copyright(c) 2010 Sencha Inc.
  * Copyright(c) 2011 TJ Holowaychuk
  * MIT Licensed
@@ -15,32 +15,11 @@ var path = require('path');
 var resolve = path.resolve;
 
 /**
- * Favicon:
- *
  * Serves the favicon located by the given `path`.
- *
- * Options:
- *
- *   - `maxAge`  cache-control max-age directive, defaulting to 1 day
- *
- * Examples:
- *
- *   Serve custom favicon:
- *
- *     var favicon = require('static-favicon');
- *     connect()
- *       .use(favicon('public/favicon.ico'))
- *
- *   Serve favicon before logging for brevity:
- *
- *     var favicon = require('static-favicon');
- *     connect()
- *       .use(favicon('public/favicon.ico'))
- *       .use(connect.logger('dev'))
  *
  * @param {String} path
  * @param {Object} options
- * @return {Function}
+ * @return {Function} middleware
  * @api public
  */
 
