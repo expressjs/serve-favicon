@@ -4,9 +4,9 @@ Node.js middleware for serving a favicon.
 
 ```js
 var express = require('express')
-  , favicon = require('static-favicon')
-  , app     = express()
+var favicon = require('static-favicon')
 
+var app = express()
 app.use(favicon(__dirname + '/public/favicon.ico'))
 ```
 
