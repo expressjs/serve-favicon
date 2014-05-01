@@ -1,10 +1,10 @@
-# static-favicon [![Build Status](https://travis-ci.org/expressjs/favicon.svg)](https://travis-ci.org/expressjs/favicon) [![NPM version](https://badge.fury.io/js/static-favicon.svg)](http://badge.fury.io/js/static-favicon)
+# serve-favicon [![Build Status](https://travis-ci.org/expressjs/serve-favicon.svg)](https://travis-ci.org/expressjs/serve-favicon) [![NPM version](https://badge.fury.io/js/serve-favicon.svg)](http://badge.fury.io/js/serve-favicon)
 
 Node.js middleware for serving a favicon.
 
 ```js
 var express = require('express')
-var favicon = require('static-favicon')
+var favicon = require('serve-favicon')
 
 var app = express()
 app.use(favicon(__dirname + '/public/favicon.ico'))
