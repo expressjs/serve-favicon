@@ -62,8 +62,15 @@ describe('favicon()', function(){
     it('should deny POST', function(done){
       request(server)
       .post('/favicon.ico')
-      .expect('Allow', 'GET, HEAD')
+      .expect('Allow', 'GET, HEAD, OPTIONS')
       .expect(405, done);
+    });
+
+    it('should understand OPTIONS', function(done){
+      request(server)
+      .options('/favicon.ico')
+      .expect('Allow', 'GET, HEAD, OPTIONS')
+      .expect(200, done);
     });
   });
 });

@@ -38,7 +38,8 @@ module.exports = function favicon(path, options){
     if ('/favicon.ico' !== req.url) return next();
 
     if ('GET' !== req.method && 'HEAD' !== req.method) {
-      res.writeHead(405, {'Allow': 'GET, HEAD'});
+      var status = 'OPTIONS' === req.method ? 200 : 405;
+      res.writeHead(status, {'Allow': 'GET, HEAD, OPTIONS'});
       res.end();
       return;
     }
