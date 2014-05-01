@@ -2,6 +2,7 @@
 ==================
 
   * `path` argument is required; there is no default icon.
+  * Non-GET and HEAD requests are denied.
 
 1.0.2 / 2014-03-16
 ==================

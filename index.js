@@ -35,29 +35,34 @@ module.exports = function favicon(path, options){
   if (!fs.existsSync(path)) throw createNoExistsError(path);
 
   return function favicon(req, res, next){
-    if ('/favicon.ico' == req.url) {
-      if (icon) {
-        res.writeHead(200, icon.headers);
-        res.end(icon.body);
-      } else {
-        fs.readFile(path, function(err, buf){
-          if (err) return next(err);
-          icon = {
-            headers: {
-                'Content-Type': 'image/x-icon'
-              , 'Content-Length': buf.length
-              , 'ETag': '"' + md5(buf) + '"'
-              , 'Cache-Control': 'public, max-age=' + (maxAge / 1000)
-            },
-            body: buf
-          };
-          res.writeHead(200, icon.headers);
-          res.end(icon.body);
-        });
-      }
-    } else {
-      next();
+    if ('/favicon.ico' !== req.url) return next();
+
+    if ('GET' !== req.method && 'HEAD' !== req.method) {
+      res.writeHead(405, {'Allow': 'GET, HEAD'});
+      res.end();
+      return;
     }
+
+    if (icon) {
+      res.writeHead(200, icon.headers);
+      res.end(icon.body);
+      return;
+    }
+
+    fs.readFile(path, function(err, buf){
+      if (err) return next(err);
+      icon = {
+        headers: {
+          'Content-Type': 'image/x-icon',
+          'Content-Length': buf.length,
+          'ETag': '"' + md5(buf) + '"',
+          'Cache-Control': 'public, max-age=' + (maxAge / 1000)
+        },
+        body: buf
+      };
+      res.writeHead(200, icon.headers);
+      res.end(icon.body);
+    });
   };
 };
 

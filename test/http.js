@@ -58,6 +58,13 @@ describe('favicon()', function(){
       .expect('ETag', /"[^"]+"/)
       .expect(200, done);
     });
+
+    it('should deny POST', function(done){
+      request(server)
+      .post('/favicon.ico')
+      .expect('Allow', 'GET, HEAD')
+      .expect(405, done);
+    });
   });
 });
 
