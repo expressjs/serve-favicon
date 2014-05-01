@@ -11,6 +11,7 @@
 
 var fs = require('fs');
 var crypto = require('crypto');
+var util = require('util');
 
 /**
  * Favicon:
@@ -78,6 +79,8 @@ module.exports = function favicon(path, options){
     }
   };
 };
+
+module.exports = util.deprecate(module.exports, 'static-icon deprecated; switch to module serve-favicon');
 
 function md5(str, encoding){
   return crypto
