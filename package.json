@@ -8,7 +8,9 @@
   ],
   "repository": "git://github.com/expressjs/favicon.git",
   "author": "TJ Holowaychuk <tj@vision-media.ca> (http://tjholowaychuk.com)",
-  "dependencies": {},
+  "dependencies": {
+    "fresh": "0.2.2"
+  },
   "devDependencies": {
     "mocha": "~1.18.2",
     "should": "~3.3.1",

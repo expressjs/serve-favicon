@@ -72,6 +72,18 @@ describe('favicon()', function(){
       .expect('Allow', 'GET, HEAD, OPTIONS')
       .expect(200, done);
     });
+
+    it('should understand If-None-Match', function(done){
+      request(server.listen())
+      .get('/favicon.ico')
+      .expect(200, function(err, res){
+        if (err) return done(err);
+        request(server)
+        .get('/favicon.ico')
+        .set('If-None-Match', res.headers.etag)
+        .expect(304, done);
+      });
+    });
   });
 });
 
