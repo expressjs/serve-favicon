@@ -62,12 +62,12 @@ module.exports = function favicon(path, options){
 };
 
 function createNoExistsError(path) {
-	var error = new Error('ENOENT, no such file or directory \'' + path + '\'');
-	error.code = 'ENOENT';
-	error.errno = 34;
-	error.path = path;
-	error.syscall = 'open';
-	return error;
+  var error = new Error('ENOENT, no such file or directory \'' + path + '\'');
+  error.code = 'ENOENT';
+  error.errno = 34;
+  error.path = path;
+  error.syscall = 'open';
+  return error;
 }
 
 function md5(str, encoding){
