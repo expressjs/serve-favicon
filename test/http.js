@@ -1,6 +1,4 @@
 
-process.env.NODE_ENV = 'test';
-
 var favicon = require('..');
 var http = require('http');
 var path = require('path');
@@ -18,6 +16,10 @@ describe('favicon()', function(){
 
       it('should exist', function(){
         favicon.bind(null, path.join(fixtures, 'nothing')).should.throw(/ENOENT.*nothing/);
+      })
+
+      it('should not be dir', function(){
+        favicon.bind(null, fixtures).should.throw(/EISDIR.*fixtures/);
       })
     })
 

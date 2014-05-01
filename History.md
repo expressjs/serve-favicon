@@ -5,6 +5,7 @@
   * Non-GET and HEAD requests are denied.
   * Support conditional requests
   * Support OPTIONS method
+  * Throw if `path` argument is directory.
 
 1.0.2 / 2014-03-16
 ==================

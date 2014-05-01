@@ -28,12 +28,15 @@ module.exports = function favicon(path, options){
   var options = options || {}
     , maxAge = options.maxAge || 86400000
     , icon; // favicon cache
+  var stat;
 
   if (!path) throw new TypeError('path to favicon.ico is required');
 
   path = resolve(path);
+  stat = fs.statSync(path);
 
-  if (!fs.existsSync(path)) throw createNoExistsError(path);
+  if (!stat) throw createNoExistsError(path);
+  if (stat.isDirectory()) throw createIsDirError(path);
 
   return function favicon(req, res, next){
     if ('/favicon.ico' !== req.url) return next();
@@ -62,6 +65,15 @@ module.exports = function favicon(path, options){
     });
   };
 };
+
+function createIsDirError(path) {
+  var error = new Error('EISDIR, illegal operation on directory \'' + path + '\'');
+  error.code = 'EISDIR';
+  error.errno = 28;
+  error.path = path;
+  error.syscall = 'open';
+  return error;
+}
 
 function createNoExistsError(path) {
   var error = new Error('ENOENT, no such file or directory \'' + path + '\'');
