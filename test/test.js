@@ -20,12 +20,24 @@ describe('favicon()', function(){
         favicon.bind().should.throw(/path.*required/);
       })
 
+      it('should accept file path', function(){
+        favicon.bind(null, path.join(fixtures, 'favicon.ico')).should.not.throw();
+      })
+
+      it('should accept buffer', function(){
+        favicon.bind(null, new Buffer(20)).should.not.throw();
+      })
+
       it('should exist', function(){
         favicon.bind(null, path.join(fixtures, 'nothing')).should.throw(/ENOENT.*nothing/);
       })
 
       it('should not be dir', function(){
         favicon.bind(null, fixtures).should.throw(/EISDIR.*fixtures/);
+      })
+
+      it('should not be number', function(){
+        favicon.bind(null, 12).should.throw(/path.*must be.*string/);
       })
     })
 
@@ -143,28 +155,15 @@ describe('favicon()', function(){
   });
 
   describe('icon', function(){
-    var icon = path.join(fixtures, 'favicon.ico');
-    var server;
-    before(function () {
-      readFile.resetReadCount();
-      server = createServer(icon);
-    });
-
-    it('should be read on first request', function(done){
-      request(server)
-      .get('/favicon.ico')
-      .expect(200, function(err){
-        if (err) return done(err);
-        readFile.getReadCount(icon).should.equal(1);
-        done();
+    describe('file', function(){
+      var icon = path.join(fixtures, 'favicon.ico');
+      var server;
+      before(function () {
+        readFile.resetReadCount();
+        server = createServer(icon);
       });
-    });
 
-    it('should cache for second request', function(done){
-      request(server.listen())
-      .get('/favicon.ico')
-      .expect(200, function(err){
-        if (err) return done(err);
+      it('should be read on first request', function(done){
         request(server)
         .get('/favicon.ico')
         .expect(200, function(err){
@@ -172,6 +171,45 @@ describe('favicon()', function(){
           readFile.getReadCount(icon).should.equal(1);
           done();
         });
+      });
+
+      it('should cache for second request', function(done){
+        request(server.listen())
+        .get('/favicon.ico')
+        .expect(200, function(err){
+          if (err) return done(err);
+          request(server)
+          .get('/favicon.ico')
+          .expect(200, function(err){
+            if (err) return done(err);
+            readFile.getReadCount(icon).should.equal(1);
+            done();
+          });
+        });
+      });
+    });
+
+    describe('buffer', function(){
+      var buf = new Buffer(20);
+      var server;
+      before(function () {
+        buf.fill(35);
+        server = createServer(buf);
+      });
+
+      it('should be served from buffer', function(done){
+        request(server)
+        .get('/favicon.ico')
+        .expect('Content-Length', buf.length)
+        .expect(200, done);
+      });
+
+      it('should be copied', function(done){
+        buf.fill(46);
+        request(server)
+        .get('/favicon.ico')
+        .expect('Content-Length', buf.length)
+        .expect(200, '####################', done);
       });
     });
   });

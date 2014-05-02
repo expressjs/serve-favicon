@@ -19,7 +19,7 @@ var resolve = path.resolve;
 /**
  * Serves the favicon located by the given `path`.
  *
- * @param {String} path
+ * @param {String|Buffer} path
  * @param {Object} options
  * @return {Function} middleware
  * @api public
@@ -28,6 +28,7 @@ var resolve = path.resolve;
 module.exports = function favicon(path, options){
   options = options || {};
 
+  var buf;
   var icon; // favicon cache
   var maxAge = options.maxAge == null
     ? 86400000
@@ -36,11 +37,20 @@ module.exports = function favicon(path, options){
 
   if (!path) throw new TypeError('path to favicon.ico is required');
 
-  path = resolve(path);
-  stat = fs.statSync(path);
+  if (Buffer.isBuffer(path)) {
+    buf = new Buffer(path.length);
+    path.copy(buf);
 
-  if (!stat) throw createNoExistsError(path);
-  if (stat.isDirectory()) throw createIsDirError(path);
+    icon = createIcon(buf, maxAge);
+  } else if (typeof path === 'string') {
+    path = resolve(path);
+    stat = fs.statSync(path);
+
+    if (!stat) throw createNoExistsError(path);
+    if (stat.isDirectory()) throw createIsDirError(path);
+  } else {
+    throw new TypeError('path to favicon.ico must be string or buffer');
+  }
 
   return function favicon(req, res, next){
     if ('/favicon.ico' !== req.url) return next();
@@ -56,19 +66,23 @@ module.exports = function favicon(path, options){
 
     fs.readFile(path, function(err, buf){
       if (err) return next(err);
-      icon = {
-        headers: {
-          'Content-Type': 'image/x-icon',
-          'Content-Length': buf.length,
-          'Cache-Control': 'public, max-age=' + ~~(maxAge / 1000),
-          'etag': '"' + md5(buf) + '"'
-        },
-        body: buf
-      };
+      icon = createIcon(buf, maxAge);
       send(req, res, icon);
     });
   };
 };
+
+function createIcon(buf, maxAge) {
+  return {
+    body: buf,
+    headers: {
+      'Content-Type': 'image/x-icon',
+      'Content-Length': buf.length,
+      'Cache-Control': 'public, max-age=' + ~~(maxAge / 1000),
+      'etag': '"' + md5(buf) + '"'
+    }
+  };
+}
 
 function createIsDirError(path) {
   var error = new Error('EISDIR, illegal operation on directory \'' + path + '\'');

@@ -17,6 +17,7 @@ Typically this middleware will come very early in your stack (maybe even first) 
 ### favicon(path, options)
 
 Create new middleware to serve a favicon from the given `path` to a favicon file.
+`path` may also be a `Buffer` of the icon to serve.
 
 #### options
 

@@ -2,6 +2,7 @@
 ==================
 
   * `path` argument is required; there is no default icon.
+  * Accept `Buffer` of icon as first argument.
   * Non-GET and HEAD requests are denied.
   * Send valid max-age value
   * Support conditional requests
