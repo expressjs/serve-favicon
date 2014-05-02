@@ -25,9 +25,12 @@ var resolve = path.resolve;
  */
 
 module.exports = function favicon(path, options){
-  var options = options || {}
-    , maxAge = options.maxAge || 86400000
-    , icon; // favicon cache
+  options = options || {};
+
+  var icon; // favicon cache
+  var maxAge = options.maxAge == null
+    ? 86400000
+    : options.maxAge;
   var stat;
 
   if (!path) throw new TypeError('path to favicon.ico is required');

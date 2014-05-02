@@ -4,6 +4,7 @@
   * `path` argument is required; there is no default icon.
   * Non-GET and HEAD requests are denied.
   * Support conditional requests
+  * Support max-age=0
   * Support OPTIONS method
   * Throw if `path` argument is directory.
 

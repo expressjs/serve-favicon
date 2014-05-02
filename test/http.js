@@ -31,6 +31,22 @@ describe('favicon()', function(){
         .expect('Cache-Control', 'public, max-age=5')
         .expect(200, done);
       })
+
+      it('should have a default', function(done){
+        var server = createServer();
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', /public, max-age=[0-9]+/)
+        .expect(200, done);
+      })
+
+      it('should accept 0', function(done){
+        var server = createServer(null, {maxAge: 0});
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', 'public, max-age=0')
+        .expect(200, done);
+      })
     })
   })
 
