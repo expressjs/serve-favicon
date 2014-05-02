@@ -30,7 +30,7 @@ module.exports = function favicon(path, options){
   var icon; // favicon cache
   var maxAge = options.maxAge == null
     ? 86400000
-    : options.maxAge;
+    : Math.min(Math.max(0, options.maxAge), 31556926000);
   var stat;
 
   if (!path) throw new TypeError('path to favicon.ico is required');
@@ -59,7 +59,7 @@ module.exports = function favicon(path, options){
         headers: {
           'Content-Type': 'image/x-icon',
           'Content-Length': buf.length,
-          'Cache-Control': 'public, max-age=' + (maxAge / 1000),
+          'Cache-Control': 'public, max-age=' + ~~(maxAge / 1000),
           'etag': '"' + md5(buf) + '"'
         },
         body: buf

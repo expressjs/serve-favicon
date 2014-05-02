@@ -3,6 +3,7 @@
 
   * `path` argument is required; there is no default icon.
   * Non-GET and HEAD requests are denied.
+  * Send valid max-age value
   * Support conditional requests
   * Support max-age=0
   * Support OPTIONS method

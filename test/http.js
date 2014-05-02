@@ -47,6 +47,38 @@ describe('favicon()', function(){
         .expect('Cache-Control', 'public, max-age=0')
         .expect(200, done);
       })
+
+      it('should be valid delta-seconds', function(done){
+        var server = createServer(null, {maxAge: 1234});
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', 'public, max-age=1')
+        .expect(200, done);
+      })
+
+      it('should floor at 0', function(done){
+        var server = createServer(null, {maxAge: -4000});
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', 'public, max-age=0')
+        .expect(200, done);
+      })
+
+      it('should ceil at 31556926', function(done){
+        var server = createServer(null, {maxAge: 900000000000});
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', 'public, max-age=31556926')
+        .expect(200, done);
+      })
+
+      it('should accept Inifnity', function(done){
+        var server = createServer(null, {maxAge: Infinity});
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', 'public, max-age=31556926')
+        .expect(200, done);
+      })
     })
   })
 
