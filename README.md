@@ -2,15 +2,9 @@
 
 Node.js middleware for serving a favicon.
 
-```js
-var express = require('express')
-var favicon = require('serve-favicon')
+## Install
 
-var app = express()
-app.use(favicon(__dirname + '/public/favicon.ico'))
-```
-
-Typically this middleware will come very early in your stack (maybe even first) to avoid processing any other middleware if we already know the request is for `favicon.ico`.
+    npm install serve-favicon
 
 ## API
 
@@ -22,6 +16,66 @@ Create new middleware to serve a favicon from the given `path` to a favicon file
 #### options
 
   - `maxAge` - cache-control max-age directive in `ms`, defaulting to 1 day.
+
+## Examples
+
+Typically this middleware will come very early in your stack (maybe even first) to avoid processing any other middleware if we already know the request is for `/favicon.ico`.
+
+### express 3.x/4.x
+
+```javascript
+var express = require('express');
+var favicon = require('serve-favicon');
+
+var app = express();
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// Add your routes here, etc.
+
+app.listen(3000);
+```
+
+### connect
+
+```javascript
+var connect = require('connect');
+var favicon = require('serve-favicon');
+
+var app = connect();
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+// Add your middleware here, etc.
+
+app.listen(3000);
+```
+
+### vanilla http server
+
+This middleware can be used anywhere, even outside express/connect. It takes `req`, `res`, and `callback`.
+
+```javascript
+var http = require('http');
+var favicon = require('serve-favicon');
+
+var _favicon = favicon(__dirname + '/public/favicon.ico');
+
+var server = http.createServer(function onRequest(req, res) {
+  _favicon(req, res, function onNext(err) {
+    if (err) {
+      res.statusCode = 500;
+      res.end();
+      return;
+    }
+
+    // continue to process the request here, etc.
+
+    res.statusCode = 404;
+    res.end('oops');
+  });
+});
+
+server.listen(3000);
+```
 
 ## License
 
