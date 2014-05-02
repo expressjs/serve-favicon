@@ -1,4 +1,4 @@
-2.x
+2.0.0 / 2014-05-02
 ==================
 
   * `path` argument is required; there is no default icon.
