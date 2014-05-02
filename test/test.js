@@ -1,9 +1,15 @@
 
-var favicon = require('..');
+var fs = require('fs');
 var http = require('http');
 var path = require('path');
+var proxyquire = require('proxyquire');
 var request = require('supertest');
+var resolve = path.resolve;
 var should = require('should');
+
+var favicon = proxyquire('..', {
+  fs: {readFile: readFile}
+});
 
 var fixtures = __dirname + '/fixtures';
 
@@ -135,6 +141,40 @@ describe('favicon()', function(){
       });
     });
   });
+
+  describe('icon', function(){
+    var icon = path.join(fixtures, 'favicon.ico');
+    var server;
+    before(function () {
+      readFile.resetReadCount();
+      server = createServer(icon);
+    });
+
+    it('should be read on first request', function(done){
+      request(server)
+      .get('/favicon.ico')
+      .expect(200, function(err){
+        if (err) return done(err);
+        readFile.getReadCount(icon).should.equal(1);
+        done();
+      });
+    });
+
+    it('should cache for second request', function(done){
+      request(server.listen())
+      .get('/favicon.ico')
+      .expect(200, function(err){
+        if (err) return done(err);
+        request(server)
+        .get('/favicon.ico')
+        .expect(200, function(err){
+          if (err) return done(err);
+          readFile.getReadCount(icon).should.equal(1);
+          done();
+        });
+      });
+    });
+  });
 });
 
 function createServer(icon, opts) {
@@ -150,3 +190,22 @@ function createServer(icon, opts) {
 
   return server;
 }
+
+function readFile(path, options, callback) {
+  var key = resolve(path);
+
+  readFile._readCount[key] = (readFile._readCount[key] || 0) + 1;
+
+  return fs.readFile.apply(this, arguments);
+}
+
+readFile._readCount = Object.create(null);
+
+readFile.getReadCount = function getReadCount(path) {
+  var key = resolve(path);
+  return readFile._readCount[key] || 0;
+};
+
+readFile.resetReadCount = function resetReadCount() {
+  readFile._readCount = Object.create(null);
+};
