@@ -2,6 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/serve-favicon.svg)](http://badge.fury.io/js/serve-favicon)
 [![Build Status](https://travis-ci.org/expressjs/serve-favicon.svg?branch=master)](https://travis-ci.org/expressjs/serve-favicon)
+[![Coverage Status](https://img.shields.io/coveralls/expressjs/serve-favicon.svg?branch=master)](https://coveralls.io/r/expressjs/serve-favicon)
 
 Node.js middleware for serving a favicon.
 
