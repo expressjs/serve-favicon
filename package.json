@@ -13,6 +13,7 @@
     "fresh": "0.2.2"
   },
   "devDependencies": {
+    "istanbul": "0.2.10",
     "mocha": "~1.20.1",
     "proxyquire": "~1.0.1",
     "should": "~4.0.1",
@@ -22,6 +23,8 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "mocha --reporter spec test/"
+    "test": "mocha --reporter dot test/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot test/",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec test/"
   }
 }
