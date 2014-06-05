@@ -152,13 +152,19 @@ describe('favicon()', function(){
         .expect(304, done);
       });
     });
+
+    it('should ignore non-favicon requests', function(done){
+      request(server)
+      .get('/')
+      .expect(404, 'oops', done);
+    });
   });
 
   describe('icon', function(){
     describe('file', function(){
       var icon = path.join(fixtures, 'favicon.ico');
       var server;
-      before(function () {
+      beforeEach(function () {
         readFile.resetReadCount();
         server = createServer(icon);
       });
@@ -183,6 +189,42 @@ describe('favicon()', function(){
           .expect(200, function(err){
             if (err) return done(err);
             readFile.getReadCount(icon).should.equal(1);
+            done();
+          });
+        });
+      });
+    });
+
+    describe('file error', function(){
+      var icon = path.join(fixtures, 'favicon.ico');
+      var server;
+      beforeEach(function () {
+        readFile.resetReadCount();
+        server = createServer(icon);
+      });
+
+      it('should next() file read errors', function(done){
+        readFile.setNextError(new Error('oh no'));
+        request(server)
+        .get('/favicon.ico')
+        .expect(500, 'oh no', function(err){
+          if (err) return done(err);
+          readFile.getReadCount(icon).should.equal(1);
+          done();
+        });
+      });
+
+      it('should retry reading file after error', function(done){
+        readFile.setNextError(new Error('oh no'));
+        request(server.listen())
+        .get('/favicon.ico')
+        .expect(500, 'oh no', function(err){
+          if (err) return done(err);
+          request(server)
+          .get('/favicon.ico')
+          .expect(200, function(err){
+            if (err) return done(err);
+            readFile.getReadCount(icon).should.equal(2);
             done();
           });
         });
@@ -221,8 +263,8 @@ function createServer(icon, opts) {
   var _favicon = favicon(icon, opts);
   var server = http.createServer(function onRequest(req, res) {
     _favicon(req, res, function onNext(err) {
-      res.statusCode = err ? 500 : 404;
-      res.end(err ? err.stack : 'oops');
+      res.statusCode = err ? (err.status || 500) : 404;
+      res.end(err ? err.message : 'oops');
     });
   });
 
@@ -234,9 +276,19 @@ function readFile(path, options, callback) {
 
   readFile._readCount[key] = (readFile._readCount[key] || 0) + 1;
 
+  if (readFile._nextError) {
+    var cb = callback || options;
+    var err = readFile._nextError;
+
+    readFile._nextError = null;
+
+    return cb (err);
+  }
+
   return fs.readFile.apply(this, arguments);
 }
 
+readFile._nextError = null;
 readFile._readCount = Object.create(null);
 
 readFile.getReadCount = function getReadCount(path) {
@@ -246,4 +298,8 @@ readFile.getReadCount = function getReadCount(path) {
 
 readFile.resetReadCount = function resetReadCount() {
   readFile._readCount = Object.create(null);
+};
+
+readFile.setNextError = function setNextError(err) {
+  readFile._nextError = err;
 };
