@@ -1,5 +1,5 @@
-unreleased
-==========
+2.0.1 / 2014-06-05
+==================
 
   * Reduce byte size of `ETag` header
 
