@@ -45,8 +45,6 @@ module.exports = function favicon(path, options){
   } else if (typeof path === 'string') {
     path = resolve(path);
     stat = fs.statSync(path);
-
-    if (!stat) throw createNoExistsError(path);
     if (stat.isDirectory()) throw createIsDirError(path);
   } else {
     throw new TypeError('path to favicon.ico must be string or buffer');
@@ -88,15 +86,6 @@ function createIsDirError(path) {
   var error = new Error('EISDIR, illegal operation on directory \'' + path + '\'');
   error.code = 'EISDIR';
   error.errno = 28;
-  error.path = path;
-  error.syscall = 'open';
-  return error;
-}
-
-function createNoExistsError(path) {
-  var error = new Error('ENOENT, no such file or directory \'' + path + '\'');
-  error.code = 'ENOENT';
-  error.errno = 34;
   error.path = path;
   error.syscall = 'open';
   return error;
