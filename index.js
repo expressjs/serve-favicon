@@ -77,7 +77,7 @@ function createIcon(buf, maxAge) {
       'Content-Type': 'image/x-icon',
       'Content-Length': buf.length,
       'Cache-Control': 'public, max-age=' + ~~(maxAge / 1000),
-      'etag': '"' + md5(buf) + '"'
+      'etag': etag(buf)
     }
   };
 }
@@ -91,11 +91,12 @@ function createIsDirError(path) {
   return error;
 }
 
-function md5(str, encoding){
-  return crypto
+function etag(buf){
+  var hash = crypto
     .createHash('md5')
-    .update(str, 'utf8')
-    .digest(encoding || 'hex');
+    .update(buf)
+    .digest('base64');
+  return '"' + hash + '"';
 }
 
 function send(req, res, icon){
