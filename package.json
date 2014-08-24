@@ -5,6 +5,7 @@
   "author": "Douglas Christopher Wilson <doug@somethingdoug.com>",
   "license": "MIT",
   "keywords": [
+    "express",
     "favicon",
     "middleware"
   ],
@@ -19,6 +20,11 @@
     "should": "~4.0.1",
     "supertest": "~0.13.0"
   },
+  "files": [
+    "LICENSE",
+    "History.md",
+    "index.js"
+  ],
   "engines": {
     "node": ">= 0.8.0"
   },
