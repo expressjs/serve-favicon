@@ -1,8 +1,9 @@
 # serve-favicon
 
-[![NPM version](https://badge.fury.io/js/serve-favicon.svg)](http://badge.fury.io/js/serve-favicon)
-[![Build Status](https://travis-ci.org/expressjs/serve-favicon.svg?branch=master)](https://travis-ci.org/expressjs/serve-favicon)
-[![Coverage Status](https://img.shields.io/coveralls/expressjs/serve-favicon.svg?branch=master)](https://coveralls.io/r/expressjs/serve-favicon)
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 Node.js middleware for serving a favicon.
 
@@ -84,3 +85,12 @@ server.listen(3000);
 ## License
 
 [MIT](LICENSE)
+
+[npm-image]: https://img.shields.io/npm/v/serve-favicon.svg?style=flat
+[npm-url]: https://npmjs.org/package/serve-favicon
+[travis-image]: https://img.shields.io/travis/expressjs/serve-favicon.svg?style=flat
+[travis-url]: https://travis-ci.org/expressjs/serve-favicon
+[coveralls-image]: https://img.shields.io/coveralls/expressjs/serve-favicon.svg?style=flat
+[coveralls-url]: https://coveralls.io/r/expressjs/serve-favicon?branch=master
+[downloads-image]: http://img.shields.io/npm/dm/serve-favicon.svg?style=flat
+[downloads-url]: https://npmjs.org/package/serve-favicon
