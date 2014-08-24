@@ -22,7 +22,7 @@
   },
   "files": [
     "LICENSE",
-    "History.md",
+    "HISTORY.md",
     "index.js"
   ],
   "engines": {
