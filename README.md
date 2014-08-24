@@ -61,16 +61,15 @@ This middleware can be used anywhere, even outside express/connect. It takes `re
 ```javascript
 var http = require('http');
 var favicon = require('serve-favicon');
+var finalhandler = require('finalhandler');
 
 var _favicon = favicon(__dirname + '/public/favicon.ico');
 
 var server = http.createServer(function onRequest(req, res) {
+  var done = finalhandler(req, res);
+
   _favicon(req, res, function onNext(err) {
-    if (err) {
-      res.statusCode = 500;
-      res.end();
-      return;
-    }
+    if (err) return done(err);
 
     // continue to process the request here, etc.
 
