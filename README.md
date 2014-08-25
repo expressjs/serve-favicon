@@ -10,7 +10,9 @@ Node.js middleware for serving a favicon.
 
 ## Install
 
-    npm install serve-favicon
+```bash
+npm install serve-favicon
+```
 
 ## API
 
@@ -19,15 +21,21 @@ Node.js middleware for serving a favicon.
 Create new middleware to serve a favicon from the given `path` to a favicon file.
 `path` may also be a `Buffer` of the icon to serve.
 
-#### options
+#### Options
 
-  - `maxAge` - cache-control max-age directive in `ms`, defaulting to 1 day.
+Serve favicon accepts these properties in the options object.
+
+##### maxAge
+
+The `cache-control` `max-age` directive in `ms`, defaulting to 1 day.
 
 ## Examples
 
-Typically this middleware will come very early in your stack (maybe even first) to avoid processing any other middleware if we already know the request is for `/favicon.ico`.
+Typically this middleware will come very early in your stack (maybe even first)
+to avoid processing any other middleware if we already know the request is for
+`/favicon.ico`.
 
-### express 3.x/4.x
+### express
 
 ```javascript
 var express = require('express');
@@ -57,7 +65,8 @@ app.listen(3000);
 
 ### vanilla http server
 
-This middleware can be used anywhere, even outside express/connect. It takes `req`, `res`, and `callback`.
+This middleware can be used anywhere, even outside express/connect. It takes
+`req`, `res`, and `callback`.
 
 ```javascript
 var http = require('http');
