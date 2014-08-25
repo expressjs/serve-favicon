@@ -1,5 +1,5 @@
-unreleased
-==========
+2.1.0 / 2014-08-25
+==================
 
   * Accept string for `maxAge` (converted by `ms`)
   * Use `etag` to generate `ETag` header
