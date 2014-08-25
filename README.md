@@ -27,7 +27,9 @@ Serve favicon accepts these properties in the options object.
 
 ##### maxAge
 
-The `cache-control` `max-age` directive in `ms`, defaulting to 1 day.
+The `cache-control` `max-age` directive in `ms`, defaulting to 1 day. This can
+also be a string accepted by the [ms](https://www.npmjs.org/package/ms#readme)
+module.
 
 ## Examples
 

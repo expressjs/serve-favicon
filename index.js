@@ -13,8 +13,15 @@
 var etag = require('etag');
 var fresh = require('fresh');
 var fs = require('fs');
+var ms = require('ms');
 var path = require('path');
 var resolve = path.resolve;
+
+/**
+ * Module variables.
+ */
+
+var maxMaxAge = 60 * 60 * 24 * 365 * 1000; // 1 year
 
 /**
  * Serves the favicon located by the given `path`.
@@ -30,9 +37,7 @@ module.exports = function favicon(path, options){
 
   var buf;
   var icon; // favicon cache
-  var maxAge = options.maxAge == null
-    ? 86400000
-    : Math.min(Math.max(0, options.maxAge), 31556926000);
+  var maxAge = calcMaxAge(options.maxAge);
   var stat;
 
   if (!path) throw new TypeError('path to favicon.ico is required');
@@ -69,6 +74,16 @@ module.exports = function favicon(path, options){
     });
   };
 };
+
+function calcMaxAge(val) {
+  var num = typeof val === 'string'
+    ? ms(val)
+    : val;
+
+  return num != null
+    ? Math.min(Math.max(0, num), maxMaxAge)
+    : maxMaxAge
+}
 
 function createIcon(buf, maxAge) {
   return {

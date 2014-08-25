@@ -66,6 +66,14 @@ describe('favicon()', function(){
         .expect(200, done);
       })
 
+      it('should accept string', function(done){
+        var server = createServer(null, {maxAge: '30d'});
+        request(server)
+        .get('/favicon.ico')
+        .expect('Cache-Control', 'public, max-age=2592000')
+        .expect(200, done);
+      })
+
       it('should be valid delta-seconds', function(done){
         var server = createServer(null, {maxAge: 1234});
         request(server)
@@ -82,11 +90,11 @@ describe('favicon()', function(){
         .expect(200, done);
       })
 
-      it('should ceil at 31556926', function(done){
+      it('should ceil at 1 year', function(done){
         var server = createServer(null, {maxAge: 900000000000});
         request(server)
         .get('/favicon.ico')
-        .expect('Cache-Control', 'public, max-age=31556926')
+        .expect('Cache-Control', 'public, max-age=31536000')
         .expect(200, done);
       })
 
@@ -94,7 +102,7 @@ describe('favicon()', function(){
         var server = createServer(null, {maxAge: Infinity});
         request(server)
         .get('/favicon.ico')
-        .expect('Cache-Control', 'public, max-age=31556926')
+        .expect('Cache-Control', 'public, max-age=31536000')
         .expect(200, done);
       })
     })
