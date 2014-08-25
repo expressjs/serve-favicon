@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * Fix `ms` to be listed as a dependency
+
 2.1.0 / 2014-08-25
 ==================
 
