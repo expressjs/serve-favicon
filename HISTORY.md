@@ -1,9 +1,9 @@
-unreleased
-==========
+2.1.1 / 2014-08-25
+==================
 
   * Fix `ms` to be listed as a dependency
 
-2.1.0 / 2014-08-25
+2.1.0 / 2014-08-24
 ==================
 
   * Accept string for `maxAge` (converted by `ms`)
