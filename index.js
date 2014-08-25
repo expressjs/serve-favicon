@@ -10,7 +10,7 @@
  * Module dependencies.
  */
 
-var crypto = require('crypto');
+var etag = require('etag');
 var fresh = require('fresh');
 var fs = require('fs');
 var path = require('path');
@@ -89,14 +89,6 @@ function createIsDirError(path) {
   error.path = path;
   error.syscall = 'open';
   return error;
-}
-
-function etag(buf){
-  var hash = crypto
-    .createHash('md5')
-    .update(buf)
-    .digest('base64');
-  return '"' + hash + '"';
 }
 
 function send(req, res, icon){
