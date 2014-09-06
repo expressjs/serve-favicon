@@ -16,7 +16,7 @@
     "ms": "0.6.2"
   },
   "devDependencies": {
-    "istanbul": "0.3.0",
+    "istanbul": "0.3.2",
     "mocha": "~1.21.4",
     "proxyquire": "~1.0.1",
     "should": "~4.0.1",
