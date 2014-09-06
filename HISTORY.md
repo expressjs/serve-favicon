@@ -1,3 +1,9 @@
+unreleased
+==========
+
+  * deps: etag@~1.3.0
+    - Improve ETag generation speed
+
 2.1.1 / 2014-08-25
 ==================
 
