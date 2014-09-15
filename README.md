@@ -103,7 +103,7 @@ server.listen(3000);
 [travis-url]: https://travis-ci.org/expressjs/serve-favicon
 [coveralls-image]: https://img.shields.io/coveralls/expressjs/serve-favicon.svg?style=flat
 [coveralls-url]: https://coveralls.io/r/expressjs/serve-favicon?branch=master
-[downloads-image]: http://img.shields.io/npm/dm/serve-favicon.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/serve-favicon.svg?style=flat
 [downloads-url]: https://npmjs.org/package/serve-favicon
 [gittip-image]: https://img.shields.io/gittip/dougwilson.svg?style=flat
 [gittip-url]: https://www.gittip.com/dougwilson/
