@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Fix content headers being sent in 304 response
   * deps: etag@~1.3.1
     - Improve ETag generation speed
 

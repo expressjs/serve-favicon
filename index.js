@@ -89,10 +89,8 @@ function createIcon(buf, maxAge) {
   return {
     body: buf,
     headers: {
-      'Content-Type': 'image/x-icon',
-      'Content-Length': buf.length,
       'Cache-Control': 'public, max-age=' + ~~(maxAge / 1000),
-      'etag': etag(buf)
+      'ETag': etag(buf)
     }
   };
 }
@@ -106,11 +104,22 @@ function createIsDirError(path) {
   return error;
 }
 
-function send(req, res, icon){
-  var _fresh = fresh(req.headers, icon.headers);
-  var buf = _fresh ? '' : icon.body;
-  var status = _fresh ? 304 : 200;
+function send(req, res, icon) {
+  var headers = icon.headers;
 
-  res.writeHead(status, icon.headers);
-  res.end(buf);
+  // Set headers
+  for (var header in headers) {
+    res.setHeader(header, headers[header]);
+  }
+
+  if (fresh(req.headers, res._headers)) {
+    res.statusCode = 304;
+    res.end();
+    return;
+  }
+
+  res.statusCode = 200;
+  res.setHeader('Content-Length', icon.body.length);
+  res.setHeader('Content-Type', 'image/x-icon');
+  res.end(icon.body);
 }
