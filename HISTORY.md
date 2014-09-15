@@ -1,5 +1,5 @@
-unreleased
-==========
+2.1.4 / 2014-09-15
+==================
 
   * Fix content headers being sent in 304 response
   * deps: etag@~1.3.1
