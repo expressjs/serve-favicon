@@ -150,7 +150,7 @@ describe('favicon()', function(){
     });
 
     it('should understand If-None-Match', function(done){
-      request(server.listen())
+      request(server)
       .get('/favicon.ico')
       .expect(200, function(err, res){
         if (err) return done(err);
@@ -188,7 +188,7 @@ describe('favicon()', function(){
       });
 
       it('should cache for second request', function(done){
-        request(server.listen())
+        request(server)
         .get('/favicon.ico')
         .expect(200, function(err){
           if (err) return done(err);
@@ -224,7 +224,7 @@ describe('favicon()', function(){
 
       it('should retry reading file after error', function(done){
         readFile.setNextError(new Error('oh no'));
-        request(server.listen())
+        request(server)
         .get('/favicon.ico')
         .expect(500, 'oh no', function(err){
           if (err) return done(err);
