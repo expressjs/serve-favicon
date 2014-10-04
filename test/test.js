@@ -259,7 +259,12 @@ describe('favicon()', function(){
         request(server)
         .get('/favicon.ico')
         .expect('Content-Length', buf.length)
-        .expect(200, '####################', done);
+        .expect(200, function (err, res) {
+          if (err) return done(err);
+          should(res.body).not.be.empty;
+          res.body.toString().should.equal('####################');
+          done();
+        });
       });
     });
   });
