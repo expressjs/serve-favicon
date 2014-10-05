@@ -10,17 +10,24 @@
  * Module dependencies.
  */
 
+/** @private */
 var etag = require('etag');
+/** @private */
 var fresh = require('fresh');
+/** @private */
 var fs = require('fs');
+/** @private */
 var ms = require('ms');
+/** @private */
 var path = require('path');
+/** @private */
 var resolve = path.resolve;
 
 /**
  * Module variables.
  */
 
+/** @private */
 var maxMaxAge = 60 * 60 * 24 * 365 * 1000; // 1 year
 
 /**
@@ -75,6 +82,7 @@ module.exports = function favicon(path, options){
   };
 };
 
+/** @private */
 function calcMaxAge(val) {
   var num = typeof val === 'string'
     ? ms(val)
@@ -85,6 +93,7 @@ function calcMaxAge(val) {
     : maxMaxAge
 }
 
+/** @private */
 function createIcon(buf, maxAge) {
   return {
     body: buf,
@@ -95,6 +104,7 @@ function createIcon(buf, maxAge) {
   };
 }
 
+/** @private */
 function createIsDirError(path) {
   var error = new Error('EISDIR, illegal operation on directory \'' + path + '\'');
   error.code = 'EISDIR';
@@ -104,6 +114,7 @@ function createIsDirError(path) {
   return error;
 }
 
+/** @private */
 function send(req, res, icon) {
   var headers = icon.headers;
 
