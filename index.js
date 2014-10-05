@@ -8,6 +8,7 @@
 
 /**
  * Module dependencies.
+ * @private
  */
 
 var etag = require('etag');
@@ -19,6 +20,7 @@ var resolve = path.resolve;
 
 /**
  * Module variables.
+ * @private
  */
 
 var maxMaxAge = 60 * 60 * 24 * 365 * 1000; // 1 year
@@ -26,10 +28,10 @@ var maxMaxAge = 60 * 60 * 24 * 365 * 1000; // 1 year
 /**
  * Serves the favicon located by the given `path`.
  *
+ * @public
  * @param {String|Buffer} path
  * @param {Object} options
  * @return {Function} middleware
- * @api public
  */
 
 module.exports = function favicon(path, options){
@@ -75,6 +77,14 @@ module.exports = function favicon(path, options){
   };
 };
 
+/**
+ * Calculate the max-age from a configured value.
+ *
+ * @private
+ * @param {string|number} val
+ * @return {number}
+ */
+
 function calcMaxAge(val) {
   var num = typeof val === 'string'
     ? ms(val)
@@ -84,6 +94,15 @@ function calcMaxAge(val) {
     ? Math.min(Math.max(0, num), maxMaxAge)
     : maxMaxAge
 }
+
+/**
+ * Create icon data from Buffer and max-age.
+ *
+ * @private
+ * @param {Buffer} buf
+ * @param {number} maxAge
+ * @return {object}
+ */
 
 function createIcon(buf, maxAge) {
   return {
@@ -95,6 +114,14 @@ function createIcon(buf, maxAge) {
   };
 }
 
+/**
+ * Create EISDIR error.
+ *
+ * @private
+ * @param {string} path
+ * @return {Error}
+ */
+
 function createIsDirError(path) {
   var error = new Error('EISDIR, illegal operation on directory \'' + path + '\'');
   error.code = 'EISDIR';
@@ -103,6 +130,15 @@ function createIsDirError(path) {
   error.syscall = 'open';
   return error;
 }
+
+/**
+ * Send icon data in response to a request.
+ *
+ * @private
+ * @param {IncomingMessage} req
+ * @param {OutgoingMessage} res
+ * @param {object} icon
+ */
 
 function send(req, res, icon) {
   var headers = icon.headers;
