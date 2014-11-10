@@ -8,6 +8,13 @@
 
 Node.js middleware for serving a favicon.
 
+There are several reasons to use this module to serve your favicon instead of
+allowing it to be served by generic static file serving middleware. User agents
+request favicons frequently and indiscriminately, so you may wish to exclude
+these requests from your log; you can do this by using this module before you
+use your logger middleware. This module also caches the favicon in memory to
+improve performance.
+
 ## Install
 
 ```bash
