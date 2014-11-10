@@ -8,6 +8,17 @@
 
 Node.js middleware for serving a favicon.
 
+Why use this module?
+
+  - User agents request `favicon.ico` frequently and indiscriminately, so you
+    may wish to exclude these requests from your logs by using this middleware
+    before your logger middleware.
+  - This module caches the icon in memory to improve performance by skipping
+    disk access.
+  - This module provides an `ETag` based on the contents of the icon, rather
+    than file system properties.
+  - This module will serve with the most compatible `Content-Type`.
+
 ## Install
 
 ```bash
