@@ -1,11 +1,11 @@
 
+var assert = require('assert');
 var fs = require('fs');
 var http = require('http');
 var path = require('path');
 var proxyquire = require('proxyquire');
 var request = require('supertest');
 var resolve = path.resolve;
-var should = require('should');
 
 var favicon = proxyquire('..', {
   fs: {readFile: readFile}
@@ -17,27 +17,27 @@ describe('favicon()', function(){
   describe('arguments', function(){
     describe('path', function(){
       it('should be required', function(){
-        favicon.bind().should.throw(/path.*required/);
+        assert.throws(favicon.bind(), /path.*required/);
       })
 
       it('should accept file path', function(){
-        favicon.bind(null, path.join(fixtures, 'favicon.ico')).should.not.throw();
+        assert.doesNotThrow(favicon.bind(null, path.join(fixtures, 'favicon.ico')));
       })
 
       it('should accept buffer', function(){
-        favicon.bind(null, new Buffer(20)).should.not.throw();
+        assert.doesNotThrow(favicon.bind(null, new Buffer(20)));
       })
 
       it('should exist', function(){
-        favicon.bind(null, path.join(fixtures, 'nothing')).should.throw(/ENOENT.*nothing/);
+        assert.throws(favicon.bind(null, path.join(fixtures, 'nothing')), /ENOENT.*nothing/);
       })
 
       it('should not be dir', function(){
-        favicon.bind(null, fixtures).should.throw(/EISDIR.*fixtures/);
+        assert.throws(favicon.bind(null, fixtures), /EISDIR.*fixtures/);
       })
 
       it('should not be number', function(){
-        favicon.bind(null, 12).should.throw(/path.*must be.*string/);
+        assert.throws(favicon.bind(null, 12), /path.*must be.*string/);
       })
     })
 
@@ -182,7 +182,7 @@ describe('favicon()', function(){
         .get('/favicon.ico')
         .expect(200, function(err){
           if (err) return done(err);
-          readFile.getReadCount(icon).should.equal(1);
+          assert.equal(readFile.getReadCount(icon), 1);
           done();
         });
       });
@@ -196,7 +196,7 @@ describe('favicon()', function(){
           .get('/favicon.ico')
           .expect(200, function(err){
             if (err) return done(err);
-            readFile.getReadCount(icon).should.equal(1);
+            assert.equal(readFile.getReadCount(icon), 1);
             done();
           });
         });
@@ -217,7 +217,7 @@ describe('favicon()', function(){
         .get('/favicon.ico')
         .expect(500, 'oh no', function(err){
           if (err) return done(err);
-          readFile.getReadCount(icon).should.equal(1);
+          assert.equal(readFile.getReadCount(icon), 1);
           done();
         });
       });
@@ -232,7 +232,7 @@ describe('favicon()', function(){
           .get('/favicon.ico')
           .expect(200, function(err){
             if (err) return done(err);
-            readFile.getReadCount(icon).should.equal(2);
+            assert.equal(readFile.getReadCount(icon), 2);
             done();
           });
         });
@@ -261,8 +261,8 @@ describe('favicon()', function(){
         .expect('Content-Length', buf.length)
         .expect(200, function (err, res) {
           if (err) return done(err);
-          should(res.body).not.be.empty;
-          res.body.toString().should.equal('####################');
+          assert.ok(res.body);
+          assert.equal(res.body.toString(), '####################');
           done();
         });
       });

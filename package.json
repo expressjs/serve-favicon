@@ -19,7 +19,6 @@
     "istanbul": "0.3.2",
     "mocha": "~2.0.1",
     "proxyquire": "~1.0.1",
-    "should": "~4.0.1",
     "supertest": "~0.15.0"
   },
   "files": [
