@@ -144,8 +144,10 @@ function send(req, res, icon) {
   var headers = icon.headers;
 
   // Set headers
-  for (var header in headers) {
-    res.setHeader(header, headers[header]);
+  var keys = Object.keys(headers);
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    res.setHeader(key, headers[key]);
   }
 
   if (fresh(req.headers, res._headers)) {
