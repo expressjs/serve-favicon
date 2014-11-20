@@ -145,7 +145,9 @@ function send(req, res, icon) {
 
   // Set headers
   for (var header in headers) {
-    res.setHeader(header, headers[header]);
+    if (headers.hasOwnProperty(header)) {
+      res.setHeader(header, headers[header]);
+    }
   }
 
   if (fresh(req.headers, res._headers)) {
