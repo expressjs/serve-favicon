@@ -1,5 +1,5 @@
-unreleased
-==========
+2.1.7 / 2014-11-19
+==================
 
   * Avoid errors from enumerables on `Object.prototype`
 
