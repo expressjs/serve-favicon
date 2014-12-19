@@ -17,6 +17,7 @@ var fs = require('fs');
 var ms = require('ms');
 var path = require('path');
 var resolve = path.resolve;
+var url = require('url');
 
 /**
  * Module variables.
@@ -58,7 +59,8 @@ module.exports = function favicon(path, options){
   }
 
   return function favicon(req, res, next){
-    if ('/favicon.ico' !== req.url) return next();
+    var requestPath = req.path || url.parse(req.url).pathname;
+    if ('/favicon.ico' !== requestPath) return next();
 
     if ('GET' !== req.method && 'HEAD' !== req.method) {
       var status = 'OPTIONS' === req.method ? 200 : 405;
