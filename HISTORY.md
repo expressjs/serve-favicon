@@ -1,5 +1,5 @@
-unreleased
-==========
+2.2.0 / 2014-12-18
+==================
 
   * Support query string in the URL
   * deps: etag@~1.5.1
