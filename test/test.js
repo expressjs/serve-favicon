@@ -166,6 +166,13 @@ describe('favicon()', function(){
       .get('/')
       .expect(404, 'oops', done);
     });
+
+    it('should work with query string', function (done) {
+      request(server)
+      .get('/favicon.ico?v=1')
+      .expect('Content-Type', 'image/x-icon')
+      .expect(200, done);
+    });
   });
 
   describe('icon', function(){

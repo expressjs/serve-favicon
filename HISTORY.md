@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Support query string in the URL
   * deps: etag@~1.5.1
     - deps: crc@3.2.1
   * deps: ms@0.7.0
