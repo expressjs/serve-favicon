@@ -9,6 +9,10 @@
 
 Node.js middleware for serving a favicon.
 
+A favicon is a visual cue that client software, like browsers, use to identify
+a site. For an example and mroe information, please visit
+[the Wikipedia article on favicons](https://en.wikipedia.org/wiki/Favicon).
+
 Why use this module?
 
   - User agents request `favicon.ico` frequently and indiscriminately, so you
@@ -19,6 +23,11 @@ Why use this module?
   - This module provides an `ETag` based on the contents of the icon, rather
     than file system properties.
   - This module will serve with the most compatible `Content-Type`.
+
+**Note** This module is exclusively for serving the "default, implicit favicon",
+which is `GET /favicon.ico`. For additional vendor-specific icons that require
+HTML markup, additional middleware is required to serve the relevant files, for
+example [serve-static](https://npmjs.org/package/serve-static).
 
 ## Install
 
