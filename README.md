@@ -6,7 +6,7 @@
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![Gittip][gittip-image]][gittip-url]
 
-Node.js middleware for serving a favicon.
+Node.js middleware for serving the browser default favicon.  
 
 Why use this module?
 
@@ -104,6 +104,8 @@ var server = http.createServer(function onRequest(req, res) {
 server.listen(3000);
 ```
 
+
+For sites using a more cross-browser solution this module will only provide the default, the serve-static middleware may be a better solution for any additional icons.
 ## License
 
 [MIT](LICENSE)
