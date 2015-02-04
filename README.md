@@ -2,7 +2,8 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
-[![Build Status][travis-image]][travis-url]
+[![Linux Build][travis-image]][travis-url]
+[![Windows Build][appveyor-image]][appveyor-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![Gittip][gittip-image]][gittip-url]
 
@@ -110,8 +111,10 @@ server.listen(3000);
 
 [npm-image]: https://img.shields.io/npm/v/serve-favicon.svg?style=flat
 [npm-url]: https://npmjs.org/package/serve-favicon
-[travis-image]: https://img.shields.io/travis/expressjs/serve-favicon.svg?style=flat
+[travis-image]: https://img.shields.io/travis/expressjs/serve-favicon/master.svg?label=linux&style=flat
 [travis-url]: https://travis-ci.org/expressjs/serve-favicon
+[appveyor-image]: https://img.shields.io/appveyor/ci/dougwilson/serve-favicon/master.svg?label=windows&style=flat
+[appveyor-url]: https://ci.appveyor.com/project/dougwilson/serve-favicon
 [coveralls-image]: https://img.shields.io/coveralls/expressjs/serve-favicon.svg?style=flat
 [coveralls-url]: https://coveralls.io/r/expressjs/serve-favicon?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/serve-favicon.svg?style=flat
