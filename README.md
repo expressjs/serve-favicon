@@ -10,7 +10,7 @@
 Node.js middleware for serving a favicon.
 
 A favicon is a visual cue that client software, like browsers, use to identify
-a site. For an example and mroe information, please visit
+a site. For an example and more information, please visit
 [the Wikipedia article on favicons](https://en.wikipedia.org/wiki/Favicon).
 
 Why use this module?
