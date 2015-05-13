@@ -118,15 +118,15 @@ server.listen(3000);
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/serve-favicon.svg?style=flat
+[npm-image]: https://img.shields.io/npm/v/serve-favicon.svg
 [npm-url]: https://npmjs.org/package/serve-favicon
-[travis-image]: https://img.shields.io/travis/expressjs/serve-favicon/master.svg?label=linux&style=flat
+[travis-image]: https://img.shields.io/travis/expressjs/serve-favicon/master.svg?label=linux
 [travis-url]: https://travis-ci.org/expressjs/serve-favicon
-[appveyor-image]: https://img.shields.io/appveyor/ci/dougwilson/serve-favicon/master.svg?label=windows&style=flat
+[appveyor-image]: https://img.shields.io/appveyor/ci/dougwilson/serve-favicon/master.svg?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/dougwilson/serve-favicon
-[coveralls-image]: https://img.shields.io/coveralls/expressjs/serve-favicon.svg?style=flat
+[coveralls-image]: https://img.shields.io/coveralls/expressjs/serve-favicon.svg
 [coveralls-url]: https://coveralls.io/r/expressjs/serve-favicon?branch=master
-[downloads-image]: https://img.shields.io/npm/dm/serve-favicon.svg?style=flat
+[downloads-image]: https://img.shields.io/npm/dm/serve-favicon.svg
 [downloads-url]: https://npmjs.org/package/serve-favicon
-[gittip-image]: https://img.shields.io/gittip/dougwilson.svg?style=flat
+[gittip-image]: https://img.shields.io/gittip/dougwilson.svg
 [gittip-url]: https://www.gittip.com/dougwilson/
