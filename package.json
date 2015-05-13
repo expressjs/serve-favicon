@@ -13,7 +13,7 @@
   "dependencies": {
     "etag": "~1.5.1",
     "fresh": "0.2.4",
-    "ms": "0.7.0",
+    "ms": "0.7.1",
     "parseurl": "~1.3.0"
   },
   "devDependencies": {

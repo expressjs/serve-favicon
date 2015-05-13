@@ -1,3 +1,9 @@
+unreleased
+==========
+
+  * deps: ms@0.7.1
+    - Prevent extraordinarily long inputs
+
 2.2.0 / 2014-12-18
 ==================
 
