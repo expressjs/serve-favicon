@@ -11,7 +11,7 @@
   ],
   "repository": "expressjs/serve-favicon",
   "dependencies": {
-    "etag": "~1.5.1",
+    "etag": "~1.6.0",
     "fresh": "0.2.4",
     "ms": "0.7.1",
     "parseurl": "~1.3.0"

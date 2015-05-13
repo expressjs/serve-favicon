@@ -1,6 +1,9 @@
 unreleased
 ==========
 
+  * deps: etag@~1.6.0
+   - Improve support for JXcore
+   - Support "fake" stats objects in environments without `fs`
   * deps: ms@0.7.1
     - Prevent extraordinarily long inputs
 
