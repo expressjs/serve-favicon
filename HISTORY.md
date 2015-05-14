@@ -1,5 +1,5 @@
-unreleased
-==========
+2.2.1 / 2015-05-14
+==================
 
   * deps: etag@~1.6.0
    - Improve support for JXcore
