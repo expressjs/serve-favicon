@@ -121,6 +121,13 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
+    it('should serve icon', function(done){
+      request(server)
+      .get('/somePath/favicon.ico')
+      .expect('Content-Type', 'image/x-icon')
+      .expect(200, done);
+    });
+
     it('should include cache-control', function(done){
       request(server)
       .get('/favicon.ico')
