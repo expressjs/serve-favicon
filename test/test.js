@@ -128,10 +128,10 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should include etag', function(done){
+    it('should include strong etag', function(done){
       request(server)
       .get('/favicon.ico')
-      .expect('ETag', /"[^"]+"/)
+      .expect('ETag', /^"[^"]+"$/)
       .expect(200, done);
     });
 
@@ -149,7 +149,7 @@ describe('favicon()', function(){
       .expect(200, done);
     });
 
-    it('should understand If-None-Match', function(done){
+    it('should 304 when If-None-Match matches', function(done){
       request(server)
       .get('/favicon.ico')
       .expect(200, function(err, res){
@@ -157,6 +157,18 @@ describe('favicon()', function(){
         request(server)
         .get('/favicon.ico')
         .set('If-None-Match', res.headers.etag)
+        .expect(304, done);
+      });
+    });
+
+    it('should 304 when If-None-Match matches weakly', function(done){
+      request(server)
+      .get('/favicon.ico')
+      .expect(200, function(err, res){
+        if (err) return done(err);
+        request(server)
+        .get('/favicon.ico')
+        .set('If-None-Match', 'W/' + res.headers.etag)
         .expect(304, done);
       });
     });
