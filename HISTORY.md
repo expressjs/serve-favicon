@@ -1,6 +1,10 @@
 unreleased
 ==========
 
+  * deps: etag@~1.7.0
+    - Always include entity length in ETags for hash length extensions
+    - Generate non-Stats ETags using MD5 only (no longer CRC32)
+    - Remove base64 padding in ETags to shorten
   * perf: enable strict mode
 
 2.2.1 / 2015-05-14
