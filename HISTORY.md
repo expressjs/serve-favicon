@@ -1,5 +1,5 @@
-unreleased
-==========
+2.3.0 / 2015-06-13
+==================
 
   * Send non-chunked response for `OPTIONS`
   * deps: etag@~1.7.0
