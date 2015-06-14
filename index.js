@@ -22,6 +22,13 @@ var path = require('path');
 var resolve = path.resolve;
 
 /**
+ * Module exports.
+ * @public
+ */
+
+module.exports = favicon;
+
+/**
  * Module variables.
  * @private
  */
@@ -33,16 +40,16 @@ var maxMaxAge = 60 * 60 * 24 * 365 * 1000; // 1 year
  *
  * @public
  * @param {String|Buffer} path
- * @param {Object} options
+ * @param {Object} [options]
  * @return {Function} middleware
  */
 
-module.exports = function favicon(path, options){
-  options = options || {};
+function favicon(path, options) {
+  var opts = options || {};
 
   var buf;
   var icon; // favicon cache
-  var maxAge = calcMaxAge(options.maxAge);
+  var maxAge = calcMaxAge(opts.maxAge);
   var stat;
 
   if (!path) throw new TypeError('path to favicon.ico is required');

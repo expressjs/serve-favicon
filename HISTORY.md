@@ -8,6 +8,7 @@ unreleased
   * deps: fresh@0.3.0
     - Add weak `ETag` matching support
   * perf: enable strict mode
+  * perf: remove argument reassignment
 
 2.2.1 / 2015-05-14
 ==================
