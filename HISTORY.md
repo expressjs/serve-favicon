@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Send non-chunked response for `OPTIONS`
   * deps: etag@~1.7.0
     - Always include entity length in ETags for hash length extensions
     - Generate non-Stats ETags using MD5 only (no longer CRC32)
