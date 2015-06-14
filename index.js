@@ -122,7 +122,7 @@ function createIcon(buf, maxAge) {
   return {
     body: buf,
     headers: {
-      'Cache-Control': 'public, max-age=' + ~~(maxAge / 1000),
+      'Cache-Control': 'public, max-age=' + Math.floor(maxAge / 1000),
       'ETag': etag(buf)
     }
   };

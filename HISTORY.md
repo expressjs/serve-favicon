@@ -10,6 +10,7 @@ unreleased
     - Add weak `ETag` matching support
   * perf: enable strict mode
   * perf: remove argument reassignment
+  * perf: remove bitwise operations
 
 2.2.1 / 2015-05-14
 ==================
