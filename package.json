@@ -20,7 +20,7 @@
     "istanbul": "0.4.1",
     "mocha": "2.3.4",
     "proxyquire": "~1.2.0",
-    "supertest": "1.0.1"
+    "supertest": "1.1.0"
   },
   "files": [
     "LICENSE",
