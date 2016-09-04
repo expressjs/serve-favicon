@@ -84,8 +84,8 @@ function favicon(path, options) {
       return;
     }
 
-    if (funcPath) {
-      path = funcPath(req, res);
+    if (pathFunc) {
+      path = pathFunc(req, res);
     }
     
     if (icon[path]) return send(req, res, icon[path]);   //This assumes that path is a unique key to lookup the icon in the cache.
