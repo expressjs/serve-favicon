@@ -48,10 +48,11 @@ function favicon(path, options) {
   var opts = options || {};
 
   var buf;
-  var icon; // favicon cache
+  var icon = {}; // favicon cache
   var maxAge = calcMaxAge(opts.maxAge);
   var stat;
-
+  var pathFunc = null; //Function which returns a path
+  
   if (!path) throw new TypeError('path to favicon.ico is required');
 
   if (Buffer.isBuffer(path)) {
@@ -63,6 +64,8 @@ function favicon(path, options) {
     path = resolve(path);
     stat = fs.statSync(path);
     if (stat.isDirectory()) throw createIsDirError(path);
+  } else if (typeof path === 'function') {
+    pathFunc = path;
   } else {
     throw new TypeError('path to favicon.ico must be string or buffer');
   }
@@ -81,12 +84,16 @@ function favicon(path, options) {
       return;
     }
 
-    if (icon) return send(req, res, icon);
+    if (funcPath) {
+      path = funcPath(req, res);
+    }
+    
+    if (icon[path]) return send(req, res, icon[path]);   //This assumes that path is a unique key to lookup the icon in the cache.
 
     fs.readFile(path, function(err, buf){
       if (err) return next(err);
-      icon = createIcon(buf, maxAge);
-      send(req, res, icon);
+      icon[path] = createIcon(buf, maxAge);
+      send(req, res, icon[path]);
     });
   };
 };
