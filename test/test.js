@@ -1,15 +1,11 @@
 
 var assert = require('assert');
-var fs = require('fs');
+var favicon = require('..')
 var http = require('http');
 var path = require('path');
-var proxyquire = require('proxyquire');
 var request = require('supertest');
 var resolve = path.resolve;
-
-var favicon = proxyquire('..', {
-  fs: {readFile: readFile}
-});
+var TempIcon = require('./support/tempIcon')
 
 var fixtures = __dirname + '/fixtures';
 
@@ -189,72 +185,76 @@ describe('favicon()', function(){
 
   describe('icon', function(){
     describe('file', function(){
-      var icon = path.join(fixtures, 'favicon.ico');
-      var server;
       beforeEach(function () {
-        readFile.resetReadCount();
-        server = createServer(icon);
-      });
+        this.icon = new TempIcon()
+        this.icon.writeSync()
+      })
+
+      afterEach(function () {
+        this.icon.unlinkSync()
+        this.icon = undefined
+      })
 
       it('should be read on first request', function(done){
+        var icon = this.icon
+        var server = createServer(icon.path)
+
         request(server)
         .get('/favicon.ico')
-        .expect(200, function(err){
-          if (err) return done(err);
-          assert.equal(readFile.getReadCount(icon), 1);
-          done();
-        });
+        .expect(200, icon.data, done)
       });
 
       it('should cache for second request', function(done){
+        var icon = this.icon
+        var server = createServer(icon.path)
+
         request(server)
         .get('/favicon.ico')
-        .expect(200, function(err){
+        .expect(200, icon.data, function (err) {
           if (err) return done(err);
+          icon.unlinkSync()
           request(server)
           .get('/favicon.ico')
-          .expect(200, function(err){
-            if (err) return done(err);
-            assert.equal(readFile.getReadCount(icon), 1);
-            done();
-          });
+          .expect(200, icon.data, done)
         });
       });
     });
 
     describe('file error', function(){
-      var icon = path.join(fixtures, 'favicon.ico');
-      var server;
       beforeEach(function () {
-        readFile.resetReadCount();
-        server = createServer(icon);
-      });
+        this.icon = new TempIcon()
+        this.icon.writeSync()
+      })
+
+      afterEach(function () {
+        this.icon.unlinkSync()
+        this.icon = undefined
+      })
 
       it('should next() file read errors', function(done){
-        readFile.setNextError(new Error('oh no'));
+        var icon = this.icon
+        var server = createServer(icon.path)
+
+        icon.unlinkSync()
         request(server)
         .get('/favicon.ico')
-        .expect(500, 'oh no', function(err){
-          if (err) return done(err);
-          assert.equal(readFile.getReadCount(icon), 1);
-          done();
-        });
+        .expect(500, /ENOENT/, done)
       });
 
       it('should retry reading file after error', function(done){
-        readFile.setNextError(new Error('oh no'));
+        var icon = this.icon
+        var server = createServer(icon.path)
+
+        icon.unlinkSync()
         request(server)
         .get('/favicon.ico')
-        .expect(500, 'oh no', function(err){
-          if (err) return done(err);
+        .expect(500, /ENOENT/, function (err) {
+          if (err) return done(err)
+          icon.writeSync()
           request(server)
           .get('/favicon.ico')
-          .expect(200, function(err){
-            if (err) return done(err);
-            assert.equal(readFile.getReadCount(icon), 2);
-            done();
-          });
-        });
+          .expect(200, icon.data, done)
+        })
       });
     });
 
@@ -302,36 +302,3 @@ function createServer(icon, opts) {
 
   return server;
 }
-
-function readFile(path, options, callback) {
-  var key = resolve(path);
-
-  readFile._readCount[key] = (readFile._readCount[key] || 0) + 1;
-
-  if (readFile._nextError) {
-    var cb = callback || options;
-    var err = readFile._nextError;
-
-    readFile._nextError = null;
-
-    return cb (err);
-  }
-
-  return fs.readFile.apply(this, arguments);
-}
-
-readFile._nextError = null;
-readFile._readCount = Object.create(null);
-
-readFile.getReadCount = function getReadCount(path) {
-  var key = resolve(path);
-  return readFile._readCount[key] || 0;
-};
-
-readFile.resetReadCount = function resetReadCount() {
-  readFile._readCount = Object.create(null);
-};
-
-readFile.setNextError = function setNextError(err) {
-  readFile._nextError = err;
-};
