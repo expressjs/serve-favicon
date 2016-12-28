@@ -1,3 +1,8 @@
+unreleased
+==========
+
+  * perf: simplify initial argument checking
+
 2.3.2 / 2016-11-16
 ==================
 

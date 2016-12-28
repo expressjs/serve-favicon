@@ -47,22 +47,15 @@ var maxMaxAge = 60 * 60 * 24 * 365 * 1000; // 1 year
 function favicon(path, options) {
   var opts = options || {};
 
-  var buf;
   var icon; // favicon cache
   var maxAge = calcMaxAge(opts.maxAge);
-  var stat;
 
   if (!path) throw new TypeError('path to favicon.ico is required');
 
   if (Buffer.isBuffer(path)) {
-    buf = new Buffer(path.length);
-    path.copy(buf);
-
-    icon = createIcon(buf, maxAge);
+    icon = createIcon(copyBuffer(path), maxAge)
   } else if (typeof path === 'string') {
-    path = resolve(path);
-    stat = fs.statSync(path);
-    if (stat.isDirectory()) throw createIsDirError(path);
+    path = resolveSync(path)
   } else {
     throw new TypeError('path to favicon.ico must be string or buffer');
   }
@@ -110,6 +103,19 @@ function calcMaxAge(val) {
 }
 
 /**
+ * Copy a given Buffer.
+ *
+ * @param {Buffer} buf
+ * @private
+ */
+
+function copyBuffer (buf) {
+  var copy = new Buffer(buf.length)
+  buf.copy(copy)
+  return copy
+}
+
+/**
  * Create icon data from Buffer and max-age.
  *
  * @private
@@ -143,6 +149,24 @@ function createIsDirError(path) {
   error.path = path;
   error.syscall = 'open';
   return error;
+}
+
+/**
+ * Resolve the path to icon.
+ *
+ * @param {string} iconPath
+ * @private
+ */
+
+function resolveSync (iconPath) {
+  var path = resolve(iconPath)
+  var stat = fs.statSync(path)
+
+  if (stat.isDirectory()) {
+    throw createIsDirError(path)
+  }
+
+  return path
 }
 
 /**
