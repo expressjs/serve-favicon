@@ -259,31 +259,28 @@ describe('favicon()', function(){
     });
 
     describe('buffer', function(){
-      var buf = new Buffer(20);
-      var server;
-      before(function () {
-        buf.fill(35);
-        server = createServer(buf);
-      });
-
       it('should be served from buffer', function(done){
+        var buffer = new Buffer('####################')
+        var server = createServer(buffer)
+
         request(server)
         .get('/favicon.ico')
-        .expect('Content-Length', buf.length)
-        .expect(200, done);
+        .expect('Content-Length', buffer.length)
+        .expect(200, buffer, done)
       });
 
       it('should be copied', function(done){
-        buf.fill(46);
+        var buffer = new Buffer('####################')
+        var server = createServer(buffer)
+
+        assert.equal(buffer.toString(), '####################')
+        buffer.fill('?')
+        assert.equal(buffer.toString(), '????????????????????')
+
         request(server)
         .get('/favicon.ico')
-        .expect('Content-Length', buf.length)
-        .expect(200, function (err, res) {
-          if (err) return done(err);
-          assert.ok(res.body);
-          assert.equal(res.body.toString(), '####################');
-          done();
-        });
+        .expect('Content-Length', buffer.length)
+        .expect(200, new Buffer('####################'), done)
       });
     });
   });
