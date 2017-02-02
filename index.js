@@ -61,7 +61,7 @@ function favicon(path, options) {
   }
 
   return function favicon(req, res, next){
-    if (parseUrl(req).pathname !== '/favicon.ico') {
+    if (parseUrl(req).pathname.indexOf('/favicon.ico') === -1) {
       next();
       return;
     }
