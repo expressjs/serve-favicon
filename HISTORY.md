@@ -1,6 +1,12 @@
 unreleased
 ==========
 
+  * deps: fresh@0.4.0
+    - Fix false detection of `no-cache` request directive
+    - perf: enable strict mode
+    - perf: hoist regular expressions
+    - perf: remove duplicate conditional
+    - perf: remove unnecessary boolean coercions
   * perf: simplify initial argument checking
 
 2.3.2 / 2016-11-16
