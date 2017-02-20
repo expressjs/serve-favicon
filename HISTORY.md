@@ -1,5 +1,5 @@
-unreleased
-==========
+2.4.0 / 2017-02-19
+==================
 
   * deps: etag@~1.8.0
     - Use SHA1 instead of MD5 for ETag hashing
