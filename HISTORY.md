@@ -1,6 +1,9 @@
 unreleased
 ==========
 
+  * deps: etag@~1.8.0
+    - Use SHA1 instead of MD5 for ETag hashing
+    - Works with FIPS 140-2 OpenSSL configuration
   * deps: fresh@0.4.0
     - Fix false detection of `no-cache` request directive
     - perf: enable strict mode
