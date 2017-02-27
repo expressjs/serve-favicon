@@ -1,3 +1,9 @@
+unreleased
+==========
+
+  * Remove usage of `res._headers` private field
+    - Improves compatibility with Node.js 8 nightly
+
 2.4.0 / 2017-02-19
 ==================
 

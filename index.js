@@ -157,6 +157,22 @@ function createIsDirError (path) {
 }
 
 /**
+ * Determine if the cached representation is fresh.
+ *
+ * @param {object} req
+ * @param {object} res
+ * @return {boolean}
+ * @private
+ */
+
+function isFresh (req, res) {
+  return fresh(req.headers, {
+    'etag': res.getHeader('ETag'),
+    'last-modified': res.getHeader('Last-Modified')
+  })
+}
+
+/**
  * Resolve the path to icon.
  *
  * @param {string} iconPath
@@ -193,7 +209,7 @@ function send (req, res, icon) {
   }
 
   // Validate freshness
-  if (fresh(req.headers, res._headers)) {
+  if (isFresh(req, res)) {
     res.statusCode = 304
     res.end()
     return
