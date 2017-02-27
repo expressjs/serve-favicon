@@ -3,6 +3,12 @@ unreleased
 
   * Remove usage of `res._headers` private field
     - Improves compatibility with Node.js 8 nightly
+  * deps: fresh@0.5.0
+    - Fix incorrect result when `If-None-Match` has both `*` and ETags
+    - Fix weak `ETag` matching to match spec
+    - perf: skip checking modified time if ETag check failed
+    - perf: skip parsing `If-None-Match` when no `ETag` header
+    - perf: use `Date.parse` instead of `new Date`
 
 2.4.0 / 2017-02-19
 ==================
