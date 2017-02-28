@@ -2,7 +2,6 @@ unreleased
 ==========
 
   * Remove usage of `res._headers` private field
-    - Improves compatibility with Node.js 8 nightly
   * deps: fresh@0.5.0
     - Fix incorrect result when `If-None-Match` has both `*` and ETags
     - Fix weak `ETag` matching to match spec
