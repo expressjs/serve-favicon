@@ -1,5 +1,5 @@
-unreleased
-==========
+2.4.1 / 2017-02-27
+==================
 
   * Remove usage of `res._headers` private field
   * deps: fresh@0.5.0
