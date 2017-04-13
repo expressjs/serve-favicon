@@ -1,9 +1,7 @@
 
 var crypto = require('crypto')
 var fs = require('fs')
-var os = require('os')
-var path = require('path')
-var tmpdir = os.tmpdir || os.tmpDir
+var tempPath = require('temp-path')
 
 module.exports = TempIcon
 
@@ -27,9 +25,4 @@ TempIcon.prototype.writeSync = function writeSync () {
     fs.writeFileSync(this.path, this.data)
     this.exists = true
   }
-}
-
-function tempPath () {
-  var fileName = 'favicon-' + (Date.now() + Math.random()) + '.ico'
-  return path.join(tmpdir(), fileName)
 }
