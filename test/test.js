@@ -1,5 +1,6 @@
 
 var assert = require('assert')
+var Buffer = require('safe-buffer').Buffer
 var favicon = require('..')
 var http = require('http')
 var path = require('path')
@@ -21,7 +22,7 @@ describe('favicon()', function () {
       })
 
       it('should accept buffer', function () {
-        assert.doesNotThrow(favicon.bind(null, new Buffer(20)))
+        assert.doesNotThrow(favicon.bind(null, Buffer.alloc(20)))
       })
 
       it('should exist', function () {
@@ -260,17 +261,17 @@ describe('favicon()', function () {
 
     describe('buffer', function () {
       it('should be served from buffer', function (done) {
-        var buffer = new Buffer('####################')
+        var buffer = Buffer.alloc(20, '#')
         var server = createServer(buffer)
 
         request(server)
         .get('/favicon.ico')
-        .expect('Content-Length', buffer.length)
+        .expect('Content-Length', '20')
         .expect(200, buffer, done)
       })
 
       it('should be copied', function (done) {
-        var buffer = new Buffer('####################')
+        var buffer = Buffer.alloc(20, '#')
         var server = createServer(buffer)
 
         assert.equal(buffer.toString(), '####################')
@@ -279,8 +280,8 @@ describe('favicon()', function () {
 
         request(server)
         .get('/favicon.ico')
-        .expect('Content-Length', buffer.length)
-        .expect(200, new Buffer('####################'), done)
+        .expect('Content-Length', '20')
+        .expect(200, Buffer.from('####################'), done)
       })
     })
   })

@@ -13,6 +13,7 @@
  * @private
  */
 
+var Buffer = require('safe-buffer').Buffer
 var etag = require('etag')
 var fresh = require('fresh')
 var fs = require('fs')
@@ -55,7 +56,7 @@ function favicon (path, options) {
   }
 
   if (Buffer.isBuffer(path)) {
-    icon = createIcon(copyBuffer(path), maxAge)
+    icon = createIcon(Buffer.from(path), maxAge)
   } else if (typeof path === 'string') {
     path = resolveSync(path)
   } else {
@@ -105,19 +106,6 @@ function calcMaxAge (val) {
   return num != null
     ? Math.min(Math.max(0, num), ONE_YEAR_MS)
     : ONE_YEAR_MS
-}
-
-/**
- * Copy a given Buffer.
- *
- * @param {Buffer} buf
- * @private
- */
-
-function copyBuffer (buf) {
-  var copy = new Buffer(buf.length)
-  buf.copy(copy)
-  return copy
 }
 
 /**
