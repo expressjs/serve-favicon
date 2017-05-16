@@ -1,7 +1,7 @@
 {
   "name": "serve-favicon",
   "description": "favicon serving middleware with caching",
-  "version": "2.4.2",
+  "version": "2.4.3",
   "author": "Douglas Christopher Wilson <doug@somethingdoug.com>",
   "license": "MIT",
   "keywords": [
