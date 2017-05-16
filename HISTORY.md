@@ -2,6 +2,7 @@ unreleased
 ==========
 
   * Use `safe-buffer` for improved Buffer API
+  * deps: ms@2.0.0
 
 2.4.2 / 2017-03-24
 ==================
