@@ -7,7 +7,8 @@
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![Gratipay][gratipay-image]][gratipay-url]
 
-Node.js middleware for serving a favicon.
+Node.js middleware for serving the default favicon.  
+Favicons are the visual cue that client software, like browsers, use to identify a site.  For example the octocat image seen on github pages is a favicon. [For more infomration see <https://en.wikipedia.org/wiki/Favicon>]  
 
 A favicon is a visual cue that client software, like browsers, use to identify
 a site. For an example and more information, please visit
@@ -120,6 +121,8 @@ var server = http.createServer(function onRequest (req, res) {
 
 server.listen(3000)
 ```
+
+For projects where supporting devices that use additional icons is critical, additional middleware is required. For example, serve-static.  
 
 ## License
 
