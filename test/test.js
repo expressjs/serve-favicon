@@ -106,47 +106,47 @@ describe('favicon()', function () {
   })
 
   describe('requests', function () {
-    var server
     before(function () {
-      server = createServer()
+      this.server = createServer()
     })
 
     it('should serve icon', function (done) {
-      request(server)
+      request(this.server)
       .get('/favicon.ico')
       .expect('Content-Type', 'image/x-icon')
       .expect(200, done)
     })
 
     it('should include cache-control', function (done) {
-      request(server)
+      request(this.server)
       .get('/favicon.ico')
       .expect('Cache-Control', /public/)
       .expect(200, done)
     })
 
     it('should include strong etag', function (done) {
-      request(server)
+      request(this.server)
       .get('/favicon.ico')
       .expect('ETag', /^"[^"]+"$/)
       .expect(200, done)
     })
 
     it('should deny POST', function (done) {
-      request(server)
+      request(this.server)
       .post('/favicon.ico')
       .expect('Allow', 'GET, HEAD, OPTIONS')
       .expect(405, done)
     })
 
     it('should understand OPTIONS', function (done) {
-      request(server)
+      request(this.server)
       .options('/favicon.ico')
       .expect('Allow', 'GET, HEAD, OPTIONS')
       .expect(200, done)
     })
 
     it('should 304 when If-None-Match matches', function (done) {
+      var server = this.server
       request(server)
       .get('/favicon.ico')
       .expect(200, function (err, res) {
@@ -159,6 +159,7 @@ describe('favicon()', function () {
     })
 
     it('should 304 when If-None-Match matches weakly', function (done) {
+      var server = this.server
       request(server)
       .get('/favicon.ico')
       .expect(200, function (err, res) {
@@ -171,13 +172,13 @@ describe('favicon()', function () {
     })
 
     it('should ignore non-favicon requests', function (done) {
-      request(server)
+      request(this.server)
       .get('/')
       .expect(404, 'oops', done)
     })
 
     it('should work with query string', function (done) {
-      request(server)
+      request(this.server)
       .get('/favicon.ico?v=1')
       .expect('Content-Type', 'image/x-icon')
       .expect(200, done)
