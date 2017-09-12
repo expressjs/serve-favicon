@@ -1,6 +1,9 @@
 unreleased
 ==========
 
+  * deps: parseurl@~1.3.2
+    - perf: reduce overhead for full URLs
+    - perf: unroll the "fast-path" `RegExp`
   * deps: safe-buffer@5.1.1
 
 2.4.3 / 2017-05-16
