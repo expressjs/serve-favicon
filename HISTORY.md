@@ -1,6 +1,9 @@
 unreleased
 ==========
 
+  * deps: fresh@0.5.1
+    - Fix handling of modified headers with invalid dates
+    - perf: improve ETag match loop
   * deps: parseurl@~1.3.2
     - perf: reduce overhead for full URLs
     - perf: unroll the "fast-path" `RegExp`
