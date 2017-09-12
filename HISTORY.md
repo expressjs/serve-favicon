@@ -1,5 +1,5 @@
-unreleased
-==========
+2.4.4 / 2017-09-11
+==================
 
   * deps: fresh@0.5.1
     - Fix handling of modified headers with invalid dates
