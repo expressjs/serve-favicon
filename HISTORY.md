@@ -3,6 +3,9 @@ unreleased
 
   * deps: etag@~1.8.1
     - perf: replace regular expression with substring
+  * deps: fresh@0.5.2
+    - Fix regression matching multiple ETags in `If-None-Match`
+    - perf: improve `If-None-Match` token parsing
 
 2.4.4 / 2017-09-11
 ==================
