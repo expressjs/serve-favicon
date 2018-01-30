@@ -1,6 +1,7 @@
 unreleased
 ==========
 
+  * Ignore requests without `url` property
   * deps: ms@2.1.1
     - Add `week`
     - Add `w`

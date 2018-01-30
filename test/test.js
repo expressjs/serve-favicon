@@ -183,6 +183,13 @@ describe('favicon()', function () {
       .expect('Content-Type', 'image/x-icon')
       .expect(200, done)
     })
+
+    describe('missing req.url', function () {
+      it('should ignore the request', function (done) {
+        var fn = favicon(ICON_PATH)
+        fn({}, {}, done)
+      })
+    })
   })
 
   describe('icon', function () {

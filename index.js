@@ -64,7 +64,7 @@ function favicon (path, options) {
   }
 
   return function favicon (req, res, next) {
-    if (parseUrl(req).pathname !== '/favicon.ico') {
+    if (getPathname(req) !== '/favicon.ico') {
       next()
       return
     }
@@ -142,6 +142,21 @@ function createIsDirError (path) {
   error.path = path
   error.syscall = 'open'
   return error
+}
+
+/**
+ * Get the request pathname.
+ *
+ * @param {object} req
+ * @return {string}
+ */
+
+function getPathname (req) {
+  try {
+    return parseUrl(req).pathname
+  } catch (e) {
+    return undefined
+  }
 }
 
 /**
