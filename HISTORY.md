@@ -1,5 +1,5 @@
-unreleased
-==========
+2.5.0 / 2018-03-29
+==================
 
   * Ignore requests without `url` property
   * deps: ms@2.1.1
