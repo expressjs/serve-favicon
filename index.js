@@ -64,7 +64,16 @@ function favicon (path, options) {
   }
 
   return function favicon (req, res, next) {
-    if (getPathname(req) !== '/favicon.ico') {
+    var requestPathname = getPathname(req)
+
+    if (requestPathname === undefined) {
+      next()
+      return
+    }
+
+    var requestPathnameSegments = requestPathname.split('/')
+
+    if (requestPathnameSegments[requestPathnameSegments.length - 1] !== 'favicon.ico') {
       next()
       return
     }

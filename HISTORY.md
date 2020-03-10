@@ -1,3 +1,8 @@
+2.6.0 / 2020-03-10
+==================
+
+  * Allow a path before /favicon.ico for servers that might be behind a proxy, etc.
+
 2.5.0 / 2018-03-29
 ==================
 

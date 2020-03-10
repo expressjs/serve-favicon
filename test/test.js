@@ -184,6 +184,13 @@ describe('favicon()', function () {
         .expect(200, done)
     })
 
+    it('should work with path prefix', function (done) {
+      request(this.server)
+        .get('/some-path/favicon.ico')
+        .expect('Content-Type', 'image/x-icon')
+        .expect(200, done)
+    })
+
     describe('missing req.url', function () {
       it('should ignore the request', function (done) {
         var fn = favicon(ICON_PATH)
