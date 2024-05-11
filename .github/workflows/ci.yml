@@ -72,47 +72,51 @@ jobs:
 
         - name: Node.js 6.x
           node-version: "6.17"
-          npm-i: mocha@6.2.2 nyc@14.1.1
+          npm-i: mocha@6.2.2 nyc@14.1.1 supertest@4.0.2
 
         - name: Node.js 7.x
           node-version: "7.10"
-          npm-i: mocha@6.2.2 nyc@14.1.1
+          npm-i: mocha@6.2.2 nyc@14.1.1 supertest@4.0.2
 
         - name: Node.js 8.x
           node-version: "8.17"
-          npm-i: mocha@7.1.2 nyc@14.1.1
+          npm-i: mocha@7.1.2 nyc@14.1.1 supertest@4.0.2
 
         - name: Node.js 9.x
           node-version: "9.11"
-          npm-i: mocha@7.1.2 nyc@14.1.1
+          npm-i: mocha@7.1.2 nyc@14.1.1 supertest@4.0.2
 
         - name: Node.js 10.x
           node-version: "10.24"
-          npm-i: mocha@8.4.0
+          npm-i: mocha@8.4.0 supertest@4.0.2
 
         - name: Node.js 11.x
           node-version: "11.15"
-          npm-i: mocha@8.4.0
+          npm-i: mocha@8.4.0 supertest@4.0.2
 
         - name: Node.js 12.x
           node-version: "12.22"
-          npm-i: mocha@9.2.2
+          npm-i: mocha@9.2.2 supertest@4.0.2
 
         - name: Node.js 13.x
           node-version: "13.14"
-          npm-i: mocha@9.2.2
+          npm-i: mocha@9.2.2 supertest@4.0.2
 
         - name: Node.js 14.x
           node-version: "14.21"
+          npm-i: supertest@4.0.2
 
         - name: Node.js 15.x
           node-version: "15.14"
+          npm-i: supertest@4.0.2
 
         - name: Node.js 16.x
           node-version: "16.20"
+          npm-i: supertest@4.0.2
 
         - name: Node.js 17.x
           node-version: "17.9"
+          npm-i: supertest@4.0.2
 
         - name: Node.js 18.x
           node-version: "18.18"
