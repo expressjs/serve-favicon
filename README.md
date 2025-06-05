@@ -4,6 +4,7 @@
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Linux Build Status][ci-image]][ci-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
+[![OpenSSF Scorecard Badge][ossf-scorecard-badge]][ossf-scorecard-visualizer]
 
 Node.js middleware for serving a favicon.
 
@@ -131,3 +132,5 @@ server.listen(3000)
 [downloads-url]: https://npmjs.org/package/serve-favicon
 [npm-image]: https://img.shields.io/npm/v/serve-favicon.svg
 [npm-url]: https://npmjs.org/package/serve-favicon
+[ossf-scorecard-badge]: https://api.scorecard.dev/projects/github.com/expressjs/serve-favicon/badge
+[ossf-scorecard-visualizer]: https://ossf.github.io/scorecard-visualizer/#/projects/github.com/expressjs/serve-favicon
