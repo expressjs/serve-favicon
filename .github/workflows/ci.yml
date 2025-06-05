@@ -12,9 +12,9 @@ jobs:
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         name:
         - Node.js 0.8
         - Node.js 0.10
@@ -147,25 +147,14 @@ jobs:
         - name: Node.js 24.x
           node-version: "24"
 
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: actions/checkout@v4
 
-    - name: Install Node.js ${{ matrix.node-version }}
-      shell: bash -eo pipefail -l {0}
-      run: |
-        nvm install --default ${{ matrix.node-version }}
-        if [[ "${{ matrix.node-version }}" == 0.* && "$(cut -d. -f2 <<< "${{ matrix.node-version }}")" -lt 10 ]]; then
-          nvm install --alias=npm 0.10
-          nvm use ${{ matrix.node-version }}
-          if [[ "$(npm -v)" == 1.1.* ]]; then
-            nvm exec npm npm install -g npm@1.1
-            ln -fs "$(which npm)" "$(dirname "$(nvm which npm)")/npm"
-          else
-            sed -i '1s;^.*$;'"$(printf '#!%q' "$(nvm which npm)")"';' "$(readlink -f "$(which npm)")"
-          fi
-          npm config set strict-ssl false
-        fi
-        dirname "$(nvm which ${{ matrix.node-version }})" >> "$GITHUB_PATH"
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
 
     - name: Configure npm
       run: |
