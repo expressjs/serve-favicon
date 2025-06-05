@@ -3,7 +3,6 @@
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Linux Build Status][ci-image]][ci-url]
-[![Windows Build][appveyor-image]][appveyor-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 
 Node.js middleware for serving a favicon.
@@ -124,8 +123,6 @@ server.listen(3000)
 
 [MIT](LICENSE)
 
-[appveyor-image]: https://img.shields.io/appveyor/ci/dougwilson/serve-favicon/master.svg?label=windows
-[appveyor-url]: https://ci.appveyor.com/project/dougwilson/serve-favicon
 [ci-image]: https://badgen.net/github/checks/expressjs/serve-favicon/master?label=ci
 [ci-url]: https://github.com/expressjs/serve-favicon/actions/workflows/ci.yml
 [coveralls-image]: https://img.shields.io/coveralls/expressjs/serve-favicon.svg
