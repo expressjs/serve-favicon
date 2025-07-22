@@ -10,6 +10,10 @@
     "middleware"
   ],
   "repository": "expressjs/serve-favicon",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/express"
+  },
   "dependencies": {
     "etag": "~1.8.1",
     "fresh": "~0.5.2",
