@@ -47,5 +47,9 @@
     "test": "mocha --reporter spec --bail --check-leaks test/",
     "test-ci": "nyc --reporter=lcov --reporter=text npm test",
     "test-cov": "nyc --reporter=html --reporter=text npm test"
+  },
+  "homepage": "https://github.com/expressjs/serve-favicon",
+  "bugs": {
+    "url": "https://github.com/expressjs/serve-favicon/issues"
   }
 }
